@@ -1,0 +1,20 @@
+.sql-editor-filed{
+    height: 370px;
+}
+
+.format-list {
+	float: left;
+	width: 124px;
+	margin-left: 10px;
+}
+
+.sql-type {
+    float: left;
+    font-size: 14px;
+    color: #818a91;
+    padding-top: 6px;
+}
+
+.sql-type label {
+    margin-left: 10px;
+}

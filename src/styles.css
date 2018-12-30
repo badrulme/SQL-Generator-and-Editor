@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import url(bootstrap.min.css) */
+
+.textarea-copy {
+    float: right;
+    cursor: pointer;
+    border-radius: .25rem;
+    color: #818a91;
+    
+}
+
+.textarea-label {
+    float: left;
+    padding-bottom: 5px;
+}
+
+.text-area{
+    box-sizing: border-box;
+    background-color: #F9F9F9;
+    padding: 0px 10px 10px 10px;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+}
+
+.text-area h4 {
+    font-size: 17px;
+    margin: 0;
+    line-height: 31px;
+    color: #818a91;
+    float: left;
+}

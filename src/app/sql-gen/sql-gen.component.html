@@ -1,0 +1,69 @@
+<header>
+  <div style="text-align:center">
+    <h2>
+      Generate SQL Insert,Update and Delete statements quickly!
+    </h2>
+  </div>
+</header>
+
+<div class="container input-sql-area">
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="generateSqlStatement()">
+        <div class="form-group">
+          <div class="text-area">
+            <h4>Enter SQL insert statements</h4>
+            <div class=" sql-type">
+              <label class="radio-inline">
+                <input type="radio" (change)="generateSqlStatement()" [(ngModel)]="sqlType" value="S" name="sqlType">
+                SQL
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="J" (change)="generateSqlStatement()" [(ngModel)]="sqlType" name="sqlType">
+                Java - SQL
+              </label>
+            </div>
+            <textarea spellcheck="false" class="form-control input-sql" (keyup)="objectIdentify()" name="inputSql" id=""
+              [(ngModel)]="inputUserSql"></textarea>
+
+          </div>
+          <button type="submit" class="btn btn-success btn-generate">Generate SQL</button>
+        </div>
+      </form>
+
+      <div class="identify-field" *ngIf="tableName">Table Name : {{tableName}}</div>
+      <div class="identify-field" *ngIf="columnNameList">Column Name : {{columnNameList}}</div>
+      <div class="identify-field" *ngIf="inputSequence">Sequence Name : {{inputSequence}}</div>
+    </div>
+    <div class="col-md-6">
+      <div>
+        <div class="form-group">
+          <div class="text-area">
+            <h4>Insert statement</h4>
+            <div class="textarea-copy-all" placement="top" ngbTooltip="Copy All" (click)="copyInputMessage(allSql)">Copy
+              All</div>
+            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(insertsql)">Copy</div>
+            <textarea #insertsql spellcheck="false" class="form-control insert-statement-field" [(ngModel)]="insertStatementSql"></textarea>
+          </div>
+
+          <textarea #allSql spellcheck="false" class="all-sql-hide-field" [(ngModel)]="allStatementSql"></textarea>
+        </div>
+        <div class="form-group">
+          <div class="text-area">
+            <h4>Update statement</h4>
+            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(updatesql)">Copy</div>
+            <textarea #updatesql spellcheck="false" id="" class="form-control update-statement-field" [(ngModel)]="updateStatementSql"></textarea>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <div class="text-area">
+            <h4>Delete statement</h4>
+            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(deletesql)">Copy</div>
+            <textarea #deletesql spellcheck="false" id="" class="form-control delete-statement-field" [(ngModel)]="deleteStatementSql"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<header>
+  <div style="text-align:center">
+    <h2>
+      SQL to Java-SQL Query Editor
+    </h2>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-6">
+      <form (ngSubmit)="generateQuery()">
+        <div class="form-group">
+          <div class="text-area">
+            <h4>Input Format:</h4>
+            <div class="sql-type">
+              <label class="radio-inline">
+                <input type="radio" (change)="generateQuery()" [(ngModel)]="sqlInputType" value="S" name="sqlInputType">
+                SQL
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="J" (change)="generateQuery()" [(ngModel)]="sqlInputType" name="sqlInputType">
+                Java - SQL
+              </label>
+            </div>
+            <textarea spellcheck="false" [(ngModel)]="inputUserQuery" name="inputUserQuery" (keyup)="generateQuery()"
+              class="sql-editor-filed form-control"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="text-area">
+          <h4>Output Format: </h4>
+          <div class="sql-type">
+            <label class="radio-inline">
+              <input type="radio" (change)="generateSqlStatement()" [(ngModel)]="sqlOutputType" value="S" name="sqlOutputType">
+              SQL
+            </label>
+            <label class="radio-inline">
+              <input type="radio" value="J" (change)="generateSqlStatement()" [(ngModel)]="sqlOutputType" name="sqlOutputType">
+              Java - SQL
+            </label>
+          </div>
+          <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(javasql)">Copy</div>
+          <textarea #javasql spellcheck="false" [(ngModel)]="processedUserQuery" name="" class="sql-editor-filed form-control"></textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

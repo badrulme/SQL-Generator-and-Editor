@@ -1,0 +1,52 @@
+.input-sql {
+    min-height: 250px;
+}
+
+.btn-generate {
+    margin-top: 4px;
+}
+
+.input-sql-area textarea {
+    font-size: 15px;
+}
+
+.insert-statement-field,
+.update-statement-field {
+    min-height: 140px;
+}
+
+.delete-statement-field {
+    height: 60px;
+}
+
+.identify-field {
+    color: #495057;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+.sql-type {
+    float: right;
+    font-size: 14px;
+    color: #818a91;
+    padding-top: 6px;
+}
+
+.sql-type label {
+    margin-left: 10px;
+}
+
+.textarea-copy-all {
+    float: left;
+    cursor: pointer;
+    border-radius: .25rem;
+    color: #818a91;
+    margin-left: 149px;
+}
+
+.all-sql-hide-field {
+    height: .1px;
+    width: .1px;
+    position: absolute;
+    left: -999px;
+}
