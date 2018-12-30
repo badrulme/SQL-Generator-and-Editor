@@ -1,3 +1,2 @@
 # SQL Generating Tools
-![sqlgeneratingtools](https://user-images.githubusercontent.com/15130238/50544765-0c3d9400-0c2b-11e9-8aec-7b3b2452a34d.gif)
-"# sql-generator" 
+![sqlgeneratingtools](https://user-images.githubusercontent.com/15130238/50549881-2741ef80-0c8f-11e9-87d2-b5bd51a6161b.gif)

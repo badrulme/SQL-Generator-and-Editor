@@ -45,6 +45,8 @@ export class SqlEditorComponent implements OnInit {
           this.processedUserQuery = this.processedUserQuery + '\n';
         }
       }
+    } else {
+      this.processedUserQuery = '';
     }
   }
 
