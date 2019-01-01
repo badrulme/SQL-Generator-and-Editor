@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 /* @import url(bootstrap.min.css) */
 
 .textarea-copy {
@@ -6,7 +7,6 @@
     cursor: pointer;
     border-radius: .25rem;
     color: #818a91;
-    
 }
 
 .textarea-label {
@@ -14,7 +14,7 @@
     padding-bottom: 5px;
 }
 
-.text-area{
+.text-area {
     box-sizing: border-box;
     background-color: #F9F9F9;
     padding: 0px 10px 10px 10px;
@@ -28,4 +28,9 @@
     line-height: 31px;
     color: #818a91;
     float: left;
+}
+
+.header-area h4 {
+    text-align: center;
+    line-height: 35px;
 }
