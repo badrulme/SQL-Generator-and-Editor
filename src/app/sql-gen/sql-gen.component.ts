@@ -25,6 +25,10 @@ export class SqlGenComponent implements OnInit {
   insertParameterList = '';
   updateColumnList = '';
   pkColumnName = '';
+  paramsName: any = '';
+  paramsList = '';
+  paramsNameInCamelCase = '';
+  paramsNameInCamelCasePk = '';
   constructor() { }
 
   ngOnInit() {
@@ -110,6 +114,8 @@ export class SqlGenComponent implements OnInit {
     this.updateStatementSql = '';
     this.deleteStatementSql = '';
     this.allStatementSql = '';
+    this.paramsName = '';
+    this.paramsList = '';
     this.objectIdentify();
     if (this.columnNameList !== '' || this.tableName !== '') {
       this.splitColumn = this.columnNameList.split(',');
@@ -127,6 +133,17 @@ export class SqlGenComponent implements OnInit {
             this.insertColumnList = 'sql.append(" ' + cl;
           }
           this.pkColumnName = cl;
+          const paramsNameSplit = cl.split('_');
+          let x = 0;
+          for (const prm of paramsNameSplit) {
+            if (x === 0) {
+              this.paramsNameInCamelCasePk = prm.toLowerCase();
+            } else {
+              // this.parameterName += prm.toUpperCase();
+              this.paramsNameInCamelCasePk += prm.substr(0, 1).toUpperCase() + prm.substr(1).toLowerCase();
+            }
+            x++;
+          }
           if (this.inputSequence === '') {
             this.insertParameterList = 'S_' + this.tableName + '.NEXTVAL';
           } else {
@@ -145,6 +162,18 @@ export class SqlGenComponent implements OnInit {
             this.insertParameterList = this.insertParameterList + ',\n:' + cl;
           } else {
             this.insertParameterList = this.insertParameterList + ',");\n' + 'sql.append(" :' + cl;
+            const paramsNameSplit = cl.split('_');
+            let x = 0;
+            for (const prm of paramsNameSplit) {
+              if (x === 0) {
+                this.paramsNameInCamelCase = prm.toLowerCase();
+              } else {
+                // this.parameterName += prm.toUpperCase();
+                this.paramsNameInCamelCase += prm.substr(0, 1).toUpperCase() + prm.substr(1).toLowerCase();
+              }
+              x++;
+            }
+            this.paramsList += 'params.put("' + cl + '", ' + this.paramsNameInCamelCase + ');\n';
           }
           if (this.sqlType === 'S') {
             // tslint:disable-next-line:max-line-length
@@ -176,16 +205,19 @@ export class SqlGenComponent implements OnInit {
         // Generate Insert Statement For Java - SQL
         // tslint:disable-next-line:max-line-length
         this.insertStatementSql = '// INSERT STATEMENT FOR ' + this.tableName + '\nsql.append(" INSERT INTO ' + this.tableName + ' (");\n' + this.insertColumnList
-          + '");\n' + 'sql.append(" VALUES ( ' + this.insertParameterList + ' )");';
+          + '");\n' + 'sql.append(" VALUES ( ' + this.insertParameterList + ' )");\n' +
+          '\nMap<String, Object> params = new HashMap<>();\n' + this.paramsList;
 
         // Generate Update Statement For Java - SQL
         this.updateColumnList = this.updateColumnList.substring(0, this.updateColumnList.length - 2);
         // tslint:disable-next-line:max-line-length
-        this.updateStatementSql = '// UPDATE STATEMENT FOR ' + this.tableName + '\nsql.append(" UPDATE ' + this.tableName + ' SET");\n' + this.updateColumnList + '\nsql.append(" WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");';
+        this.updateStatementSql = '// UPDATE STATEMENT FOR ' + this.tableName + '\nsql.append(" UPDATE ' + this.tableName + ' SET");\n' + this.updateColumnList + '\nsql.append(" WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");\n' +
+          // tslint:disable-next-line:max-line-length
+          '\nMap<String, Object> params = new HashMap<>();\n' + 'params.put("' + this.pkColumnName + '", ' + this.paramsNameInCamelCasePk + ');';
 
         // Generate Delete Statement For SQL
         // tslint:disable-next-line:max-line-length
-        this.deleteStatementSql = '// DELETE STATEMENT FOR ' + this.tableName + '\nsql.append(" DELETE FROM ' + this.tableName + ' WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");';
+        this.deleteStatementSql = '// DELETE STATEMENT FOR ' + this.tableName + '\nsql.append(" DELETE FROM ' + this.tableName + ' WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");\n' + '\nMap<String, Object> params = new HashMap<>();\n' + 'params.put("' + this.pkColumnName + '", ' + this.paramsNameInCamelCasePk + ');';
         this.allStatementSql = this.insertStatementSql + '\n\n' + this.updateStatementSql + '\n\n' + this.deleteStatementSql;
 
       }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sql-editor',
@@ -43,7 +42,7 @@ export class SqlEditorComponent implements OnInit {
               this.sqlOutputType = 'S';
             } else {
               // if (sp.substring(13, sp.indexOf('");')).indexOf(':') > 0) {
-              if (sp.indexOf(':') === 0 && sp.length > 1) {
+              if (sp.indexOf(':') >= 0 && sp.length > 1) {
                 // if (this.parameterLists === '') {
                 //   this.parameterLists = 'Map<String, Object> params = new HashMap<>();\n';
                 // }
