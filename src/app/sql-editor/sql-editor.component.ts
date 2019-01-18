@@ -78,7 +78,6 @@ export class SqlEditorComponent implements OnInit {
     }
   }
 
-
   /* To copy Text from Textbox */
   copyInputMessage(inputElement) {
     inputElement.select();

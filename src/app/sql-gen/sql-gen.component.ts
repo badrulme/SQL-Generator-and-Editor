@@ -77,16 +77,16 @@ export class SqlGenComponent implements OnInit {
           } else if (st.indexOf(')') > 0) {
             const indexOfBracket: number = st.indexOf(')');
             if (st.indexOf('(') === 0) {
-              this.columnNameList = this.columnNameList + st.substring(1, indexOfBracket);
+              this.columnNameList += st.substring(1, indexOfBracket);
             } else {
-              this.columnNameList = this.columnNameList + st.substring(0, indexOfBracket);
+              this.columnNameList += st.substring(0, indexOfBracket);
             }
             this.columnFlag = 1;
           } else {
             if (st.indexOf('(') === 0) {
-              this.columnNameList = this.columnNameList + st.substring(1);
+              this.columnNameList += st.substring(1);
             } else {
-              this.columnNameList = this.columnNameList + st;
+              this.columnNameList += st;
             }
           }
         }
@@ -154,14 +154,14 @@ export class SqlGenComponent implements OnInit {
           // }
         } else {
           if (this.sqlType === 'S') {
-            this.insertColumnList = this.insertColumnList + ',\n' + cl;
+            this.insertColumnList += ',\n' + cl;
           } else {
-            this.insertColumnList = this.insertColumnList + ',");\n' + 'sql.append(" ' + cl;
+            this.insertColumnList += ',");\n' + 'sql.append(" ' + cl;
           }
           if (this.sqlType === 'S') {
-            this.insertParameterList = this.insertParameterList + ',\n:' + cl;
+            this.insertParameterList += ',\n:' + cl;
           } else {
-            this.insertParameterList = this.insertParameterList + ',");\n' + 'sql.append(" :' + cl;
+            this.insertParameterList += ',");\n' + 'sql.append(" :' + cl;
             const paramsNameSplit = cl.split('_');
             let x = 0;
             for (const prm of paramsNameSplit) {
@@ -177,7 +177,7 @@ export class SqlGenComponent implements OnInit {
           }
           if (this.sqlType === 'S') {
             // tslint:disable-next-line:max-line-length
-            this.updateColumnList = this.updateColumnList + cl.replace('SS_CREATOR', 'SS_MODIFIER') + ' = :' + cl.replace('SS_CREATOR', 'SS_MODIFIER') + ',\n';
+            this.updateColumnList += cl.replace('SS_CREATOR', 'SS_MODIFIER') + ' = :' + cl.replace('SS_CREATOR', 'SS_MODIFIER') + ',\n';
           } else {
             // tslint:disable-next-line:max-line-length
             this.updateColumnList = this.updateColumnList + 'sql.append(" ' + cl.replace('SS_CREATOR', 'SS_MODIFIER') + ' = :' + cl.replace('SS_CREATOR', 'SS_MODIFIER') + ',");\n';
@@ -223,8 +223,6 @@ export class SqlGenComponent implements OnInit {
       }
     }
   }
-
-
 
   /* To copy Text from Textbox */
   copyInputMessage(inputElement) {
