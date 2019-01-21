@@ -23,7 +23,8 @@ export class SqlEditorComponent implements OnInit {
 
       this.processedUserQuery = '';
       this.splitUserQuery = this.inputUserQuery.trim().toUpperCase().split('\n');
-      for (const sp of this.splitUserQuery) {
+      for (let sp of this.splitUserQuery) {
+        sp = sp.trim();
         if (sp !== '') {
           if (sp.indexOf('--') === 0) {
             this.processedUserQuery = this.processedUserQuery + sp.replace('--', '//') + '\n';
@@ -69,16 +70,33 @@ export class SqlEditorComponent implements OnInit {
 
     while (indexOfSemiclone >= 0) {
       indexOfSemiclone = putInputUserQuery.indexOf(':', indexOfSemiclone + 1);
+      let space = 0;
+      let comma = 0;
+      let equal = 0;
+
       if (indexOfSemiclone > 0) {
-        indexOfEndParams = putInputUserQuery.indexOf(' ', indexOfSemiclone);
+        space = putInputUserQuery.indexOf(' ', indexOfSemiclone);
+        comma = putInputUserQuery.indexOf(',', indexOfSemiclone);
+        equal = putInputUserQuery.indexOf('=', indexOfSemiclone);
+
+        if (space === -1) { space = 9999999999; }
+        if (comma === -1) { comma = 9999999999; }
+        if (equal === -1) { equal = 9999999999; }
+
+        if (space < comma && space < equal) {
+          indexOfEndParams = space;
+        } else if (comma < equal && comma < space) {
+          indexOfEndParams = comma;
+        } else if (equal < space && equal < comma) {
+          indexOfEndParams = equal;
+        }
+
       }
-      if (indexOfSemiclone > 0 && indexOfEndParams > 0) {
+      if (indexOfSemiclone > 0 && indexOfEndParams > 0 && indexOfEndParams !== 9999999999
+        && paramsName.indexOf(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '')) === -1) {
         // tslint:disable-next-line:max-line-length
         paramsName += 'params.put("' + putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '') + '", ' + this.snakeCaseToCamelCase(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams)) + ');\n';
 
-        // console.log(': ' + `${indexOfSemiclone + 1}` + ' end ' + indexOfEndParams);
-        // console.log(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', ''));
-        // console.log('final: ' + paramsName);
       }
     }
     if (paramsName === '') {
