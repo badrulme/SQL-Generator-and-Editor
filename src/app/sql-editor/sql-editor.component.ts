@@ -12,8 +12,6 @@ export class SqlEditorComponent implements OnInit {
   splitUserQuery: any = '';
   sqlInputType = 'S';
   sqlOutputType = 'J';
-  parameterLists = '';
-  parameterName = '';
 
   constructor() { }
 
@@ -22,9 +20,8 @@ export class SqlEditorComponent implements OnInit {
 
   generateQuery() {
     if (this.inputUserQuery !== '') {
+
       this.processedUserQuery = '';
-      this.parameterLists = '';
-      this.parameterName = '';
       this.splitUserQuery = this.inputUserQuery.trim().toUpperCase().split('\n');
       for (const sp of this.splitUserQuery) {
         if (sp !== '') {
@@ -33,50 +30,68 @@ export class SqlEditorComponent implements OnInit {
           } else {
             if (sp.indexOf('SQL.APPEND(" ') === 0 || sp.indexOf('//') === 0) {
               if (sp.indexOf('//') === 0) {
-                this.processedUserQuery = this.processedUserQuery + sp.replace('//', '--') + '\n';
+                this.processedUserQuery += sp.replace('//', '--') + '\n';
               } else {
-                this.processedUserQuery = this.processedUserQuery + sp.substring(13, sp.indexOf('");')) + '\n';
-
+                this.processedUserQuery += sp.substring(13, sp.indexOf('");')) + '\n';
               }
               this.sqlInputType = 'J';
               this.sqlOutputType = 'S';
             } else {
-              // if (sp.substring(13, sp.indexOf('");')).indexOf(':') > 0) {
-              if (sp.indexOf(':') >= 0 && sp.length > 1) {
-                // if (this.parameterLists === '') {
-                //   this.parameterLists = 'Map<String, Object> params = new HashMap<>();\n';
-                // }
-                const parameterNameInCamelCase = sp.substring(1).split('_');
-                let x = 0;
-                for (const prm of parameterNameInCamelCase) {
-                  if (x === 0) {
-                    this.parameterName = prm.toLowerCase();
-                  } else {
-                    // this.parameterName += prm.toUpperCase();
-                    this.parameterName += prm.substr(0, 1).toUpperCase() + prm.substr(1).toLowerCase();
-                  }
-                  x++;
-                }
-                // tslint:disable-next-line:max-line-length
-                this.parameterLists += 'params.put("' + sp.replace(',', '').replace(':', '').replace(/\s/g, '').replace(')', '') + '", ' + this.parameterName.replace(',', '').replace(/\s/g, '').replace(')', '') + '); \n';
-              }
-              // }
-              this.processedUserQuery = this.processedUserQuery + 'sql.append(" ' + sp + '");\n';
+              this.processedUserQuery += 'sql.append(" ' + sp + '");\n';
               this.sqlInputType = 'S';
               this.sqlOutputType = 'J';
             }
           }
         } else {
-          this.processedUserQuery = this.processedUserQuery + '\n';
+          this.processedUserQuery += '\n';
         }
       }
-      if (this.parameterLists !== '') {
-        this.processedUserQuery = this.processedUserQuery + 'Map<String, Object> params = new HashMap<>();\n' + this.parameterLists;
+      if (this.sqlInputType === 'S' && this.sqlOutputType === 'J') {
+        this.processedUserQuery += this.generateParams();
       }
+
     } else {
       this.processedUserQuery = '';
     }
   }
+
+  generateParams() {
+    let indexOfSemiclone = 0;
+    let indexOfEndParams = 0;
+    let paramsName = '';
+    let putInputUserQuery = this.inputUserQuery.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s\s+/g, ' ').trim();
+
+    if (putInputUserQuery.lastIndexOf(' ') + 1 <= putInputUserQuery.length) {
+      putInputUserQuery = putInputUserQuery + ' ';
+    } else {
+      putInputUserQuery = putInputUserQuery;
+    }
+
+    while (indexOfSemiclone >= 0) {
+      indexOfSemiclone = putInputUserQuery.indexOf(':', indexOfSemiclone + 1);
+      if (indexOfSemiclone > 0) {
+        indexOfEndParams = putInputUserQuery.indexOf(' ', indexOfSemiclone);
+      }
+      if (indexOfSemiclone > 0 && indexOfEndParams > 0) {
+        // tslint:disable-next-line:max-line-length
+        paramsName += 'params.put("' + putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '') + '", ' + this.snakeCaseToCamelCase(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams)) + ');\n';
+
+        // console.log(': ' + `${indexOfSemiclone + 1}` + ' end ' + indexOfEndParams);
+        // console.log(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', ''));
+        // console.log('final: ' + paramsName);
+      }
+    }
+    if (paramsName === '') {
+      return '';
+    } else {
+      return '\nMap<String, Object> params = new HashMap<>();\n' + paramsName;
+    }
+  }
+
+  /* snake case to camel case */
+  // tslint:disable-next-line:max-line-length
+  snakeCaseToCamelCase = input => input.split('_').reduce((res, word, i) => i === 0 ? word.toLowerCase() : `${res}${word.charAt(0).toUpperCase()}${word.substr(1).toLowerCase()}`, '');
+
 
   /* To copy Text from Textbox */
   copyInputMessage(inputElement) {
@@ -84,5 +99,4 @@ export class SqlEditorComponent implements OnInit {
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
   }
-
 }

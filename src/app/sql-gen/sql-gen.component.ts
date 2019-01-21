@@ -133,17 +133,8 @@ export class SqlGenComponent implements OnInit {
             this.insertColumnList = 'sql.append(" ' + cl;
           }
           this.pkColumnName = cl;
-          const paramsNameSplit = cl.split('_');
-          let x = 0;
-          for (const prm of paramsNameSplit) {
-            if (x === 0) {
-              this.paramsNameInCamelCasePk = prm.toLowerCase();
-            } else {
-              // this.parameterName += prm.toUpperCase();
-              this.paramsNameInCamelCasePk += prm.substr(0, 1).toUpperCase() + prm.substr(1).toLowerCase();
-            }
-            x++;
-          }
+
+          this.paramsNameInCamelCasePk = this.snakeCaseToCamelCase(cl);
           if (this.inputSequence === '') {
             this.insertParameterList = 'S_' + this.tableName + '.NEXTVAL';
           } else {
@@ -162,17 +153,7 @@ export class SqlGenComponent implements OnInit {
             this.insertParameterList += ',\n:' + cl;
           } else {
             this.insertParameterList += ',");\n' + 'sql.append(" :' + cl;
-            const paramsNameSplit = cl.split('_');
-            let x = 0;
-            for (const prm of paramsNameSplit) {
-              if (x === 0) {
-                this.paramsNameInCamelCase = prm.toLowerCase();
-              } else {
-                // this.parameterName += prm.toUpperCase();
-                this.paramsNameInCamelCase += prm.substr(0, 1).toUpperCase() + prm.substr(1).toLowerCase();
-              }
-              x++;
-            }
+            this.paramsNameInCamelCase = this.snakeCaseToCamelCase(cl);
             this.paramsList += 'params.put("' + cl + '", ' + this.paramsNameInCamelCase + ');\n';
           }
           if (this.sqlType === 'S') {
@@ -213,7 +194,8 @@ export class SqlGenComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.updateStatementSql = '// UPDATE STATEMENT FOR ' + this.tableName + '\nsql.append(" UPDATE ' + this.tableName + ' SET");\n' + this.updateColumnList + '\nsql.append(" WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");\n' +
           // tslint:disable-next-line:max-line-length
-          '\nMap<String, Object> params = new HashMap<>();\n' + 'params.put("' + this.pkColumnName + '", ' + this.paramsNameInCamelCasePk + ');';
+          '\nMap<String, Object> params = new HashMap<>();\n' + this.paramsList +
+          'params.put("' + this.pkColumnName + '", ' + this.paramsNameInCamelCasePk + ');';
 
         // Generate Delete Statement For SQL
         // tslint:disable-next-line:max-line-length
@@ -223,6 +205,10 @@ export class SqlGenComponent implements OnInit {
       }
     }
   }
+
+  /* snake case to camel case */
+  // tslint:disable-next-line:max-line-length
+  snakeCaseToCamelCase = input => input.split('_').reduce((res, word, i) => i === 0 ? word.toLowerCase() : `${res}${word.charAt(0).toUpperCase()}${word.substr(1).toLowerCase()}`, '');
 
   /* To copy Text from Textbox */
   copyInputMessage(inputElement) {

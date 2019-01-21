@@ -11,6 +11,7 @@ import { SqlEditorComponent } from './sql-editor/sql-editor.component';
 import { ErrorComponent } from './error/error.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { CaseConverterComponent } from './case-converter/case-converter.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
     SqlEditorComponent,
     ErrorComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    CaseConverterComponent
   ],
   imports: [
     BrowserModule,
