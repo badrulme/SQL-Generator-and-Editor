@@ -1,3 +1,36 @@
-<p>
-  Comming Soon!
-</p>
+<header class="header-area">
+  <h4>
+    String conversion
+  </h4>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="text-area">
+          <h4>Enter your text:</h4>
+          <textarea spellcheck="false" [(ngModel)]="userInputField" name="userInputField" class="case-converter-filed form-control"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="text-area">
+          <h4>Output Format: </h4>
+          <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(convertedString)">Copy</div>
+          <textarea #convertedString spellcheck="false" [(ngModel)]="userOutputField" name="userOutputField" class="case-converter-filed form-control"></textarea>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-md-2 btn-case-generate">
+      <button type="text" (click)="upperCase()" class="btn btn-light btn-sm">UPPER CASE</button>
+      <button type="text" (click)="lowerCase()" class="btn btn-light btn-sm">lower case</button>
+      <button type="text" (click)="camelCaseLower()" class="btn btn-light btn-sm">camel Case (lower)</button>
+      <button type="text" (click)="camelCaseUpper()" class="btn btn-light btn-sm">Camel Case (Upper)</button>
+      <button type="text" (click)="snakeCase()" class="btn btn-light btn-sm">Snake-Case</button>
+    </div>
+  </div>
+</div>

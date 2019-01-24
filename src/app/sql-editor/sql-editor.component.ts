@@ -95,7 +95,7 @@ export class SqlEditorComponent implements OnInit {
       if (indexOfSemiclone > 0 && indexOfEndParams > 0 && indexOfEndParams !== 9999999999
         && paramsName.indexOf(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '')) === -1) {
         // tslint:disable-next-line:max-line-length
-        paramsName += 'params.put("' + putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '') + '", ' + this.snakeCaseToCamelCase(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams)) + ');\n';
+        paramsName += 'params.put("' + putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(',', '').replace(')', '') + '", ' + this.snakeCaseToCamelCase(putInputUserQuery.substring(indexOfSemiclone + 1, indexOfEndParams).replace(')', '')) + ');\n';
 
       }
     }
