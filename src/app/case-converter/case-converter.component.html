@@ -7,8 +7,8 @@
   <div class="row">
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
-          <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter your text:</h6>
+        <div class="card-header  d-flex align-items-center justify-content-between">
+          <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter your text</h6>
         </div>
         <div class="card-body">
           <textarea spellcheck="false" [(ngModel)]="userInputField" name="userInputField" class="case-converter-filed form-control"></textarea>
@@ -18,9 +18,9 @@
     </div>
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
-          <h6 class="pull-left m-0">Output Format: </h6>
-          <div class="textarea-copy text-white" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(convertedString)"><i
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h6 class="pull-left m-0">Output Format</h6>
+          <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(convertedString)"><i
               class="fa fa-clone" aria-hidden="true"></i></div>
         </div>
         <div class="card-body">

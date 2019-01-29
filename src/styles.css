@@ -16,7 +16,7 @@
     color: #fff !important;
   }
   body{
-        background-color: #fafafa;
+        /* background-color: #fafafa; */
         font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   }
   .text-ash-white{
@@ -56,6 +56,7 @@
   } */
   .card-header h6{
     font-weight: 400;
+    color: #818a91;
   }
 
   .text-area h4 {
@@ -70,4 +71,6 @@
       text-align: center;
       line-height: 35px;
   }
-  
+  .container-and-header{
+    min-height: calc(100vh - 24px);
+}
