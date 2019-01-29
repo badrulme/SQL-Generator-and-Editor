@@ -2,9 +2,6 @@
     min-height: 250px;
 }
 
-.btn-generate {
-    margin-top: 4px;
-}
 
 .input-sql-area textarea {
     font-size: 15px;
@@ -41,7 +38,6 @@
     cursor: pointer;
     border-radius: .25rem;
     color: #818a91;
-    margin-left: 149px;
 }
 
 .all-sql-hide-field {

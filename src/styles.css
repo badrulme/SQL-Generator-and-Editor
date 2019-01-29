@@ -1,36 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* @import url(bootstrap.min.css) */
+.navbar{
+    background: #1976d2 !important;
+    padding: 3px 1rem;
+  }
+  .bg-primary{
+      background: #1e88e5 !important;
+  }
+  
+  .navbar-expand-md .navbar-nav .nav-link{
+    color: #fff;
+  }
+  .navbar-dark .navbar-nav .nav-link{
+    color: #fff !important;
+  }
+  body{
+        background-color: #fafafa;
+        font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  }
+  .text-ash-white{
+    color: #fafafa
+  }
+  .textarea-copy {
+      float: right;
+      cursor: pointer;
+      border-radius: .25rem;
+      color: #818a91;
+  }
+  .card{
+    margin-bottom: 10px;
+  }
+  .textarea-label {
+      float: left;
+      padding-bottom: 5px;
+  }
+  .card-header{
+    padding: 0 10px;
+    min-height: 36px;
+  
+  }
+  .card-header.text-white, .card-header .text-white{
+    color: #fafafa !important;
+    
+  }
+  .card-body, .card-footer{
+    padding: 10px;
+    background: rgba(241,241,241,.2);
+  }
 
-.textarea-copy {
-    float: right;
-    cursor: pointer;
-    border-radius: .25rem;
-    color: #818a91;
-}
+  /* .card-footer{
+    background: transparent;
+    padding-top: 0;
+    border-top: 0;
+  } */
+  .card-header h6{
+    font-weight: 400;
+  }
 
-.textarea-label {
-    float: left;
-    padding-bottom: 5px;
-}
-
-.text-area {
-    box-sizing: border-box;
-    background-color: #F9F9F9;
-    padding: 0px 10px 10px 10px;
-    border: 1px solid #f2f2f2;
-    border-radius: 5px;
-}
-
-.text-area h4 {
-    font-size: 17px;
-    margin: 0;
-    line-height: 31px;
-    color: #818a91;
-    float: left;
-}
-
-.header-area h4 {
-    text-align: center;
-    line-height: 35px;
-}
+  .text-area h4 {
+      font-size: 17px;
+      margin: 0;
+      line-height: 31px;
+      color: #818a91;
+      float: left;
+  }
+  
+  .header-area h4 {
+      text-align: center;
+      line-height: 35px;
+  }
+  

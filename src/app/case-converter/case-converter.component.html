@@ -6,31 +6,39 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <div class="form-group">
-        <div class="text-area">
-          <h4>Enter your text:</h4>
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+          <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter your text:</h6>
+        </div>
+        <div class="card-body">
           <textarea spellcheck="false" [(ngModel)]="userInputField" name="userInputField" class="case-converter-filed form-control"></textarea>
         </div>
       </div>
+      <!--/.card-->
     </div>
     <div class="col-md-6">
-      <div class="form-group">
-        <div class="text-area">
-          <h4>Output Format: </h4>
-          <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(convertedString)">Copy</div>
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+          <h6 class="pull-left m-0">Output Format: </h6>
+          <div class="textarea-copy text-white" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(convertedString)"><i
+              class="fa fa-clone" aria-hidden="true"></i></div>
+        </div>
+        <div class="card-body">
           <textarea #convertedString spellcheck="false" [(ngModel)]="userOutputField" name="userOutputField" class="case-converter-filed form-control"></textarea>
-          
         </div>
       </div>
+      <!--/.card-->
     </div>
   </div>
   <div class="row">
     <div class="offset-md-2 btn-case-generate">
-      <button type="text" (click)="upperCase()" class="btn btn-light btn-sm">UPPER CASE</button>
-      <button type="text" (click)="lowerCase()" class="btn btn-light btn-sm">lower case</button>
-      <button type="text" (click)="camelCaseLower()" class="btn btn-light btn-sm">camel Case (lower)</button>
-      <button type="text" (click)="camelCaseUpper()" class="btn btn-light btn-sm">Camel Case (Upper)</button>
-      <button type="text" (click)="snakeCase()" class="btn btn-light btn-sm">Snake-Case</button>
+      <button type="text" (click)="upperCase()" class="btn bg-primary text-white btn-generate btn-sm">UPPER CASE</button>
+      <button type="text" (click)="lowerCase()" class="btn bg-primary text-white btn-generate btn-sm">lower case</button>
+      <button type="text" (click)="camelCaseLower()" class="btn bg-primary text-white btn-generate btn-sm">camel Case
+        (lower)</button>
+      <button type="text" (click)="camelCaseUpper()" class="btn bg-primary text-white btn-generate btn-sm">Camel Case
+        (Upper)</button>
+      <button type="text" (click)="snakeCase()" class="btn bg-primary text-white btn-generate btn-sm">Snake-Case</button>
     </div>
   </div>
 </div>
