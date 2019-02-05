@@ -9,11 +9,11 @@
 
 .insert-statement-field,
 .update-statement-field {
-    min-height: 140px;
+    min-height: 130px;
 }
 
 .delete-statement-field {
-    height: 60px;
+    height: 55px;
 }
 
 .identify-field {
