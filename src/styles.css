@@ -28,6 +28,10 @@
       border-radius: .25rem;
       color: #818a91;
   }
+
+  .textarea-copy:hover {
+    color: #3b3d3d;
+}
   .card{
     margin-bottom: 10px;
   }

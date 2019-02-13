@@ -39,7 +39,9 @@
     border-radius: .25rem;
     color: #818a91;
 }
-
+.textarea-copy-all:hover {
+    color: #3b3d3d;
+}
 .all-sql-hide-field {
     height: .1px;
     width: .1px;
