@@ -1,7 +1,6 @@
 package me.badrul.SqlTools.scriptRunner;
 
-import javax.activation.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 
