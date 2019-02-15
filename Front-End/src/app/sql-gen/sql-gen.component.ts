@@ -216,5 +216,4 @@ export class SqlGenComponent implements OnInit {
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
   }
-
 }

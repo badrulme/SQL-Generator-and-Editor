@@ -78,3 +78,7 @@
   .container-and-header{
     min-height: calc(100vh - 24px);
 }
+
+.nopadding {
+  padding-right: 0 !important;
+}

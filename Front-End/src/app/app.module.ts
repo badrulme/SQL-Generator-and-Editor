@@ -12,6 +12,7 @@ import { ErrorComponent } from './error/error.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { CaseConverterComponent } from './case-converter/case-converter.component';
+import { ScriptRunnerComponent } from './script-runner/script-runner.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CaseConverterComponent } from './case-converter/case-converter.componen
     ErrorComponent,
     FooterComponent,
     HomeComponent,
-    CaseConverterComponent
+    CaseConverterComponent,
+    ScriptRunnerComponent
   ],
   imports: [
     BrowserModule,
