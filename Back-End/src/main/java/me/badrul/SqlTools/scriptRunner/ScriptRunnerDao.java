@@ -14,10 +14,11 @@ public class ScriptRunnerDao {
     private JdbcTemplate db;
 
     public List getDatabaseInfo() {
-        StringBuilder sql = new StringBuilder();
-        sql.append(" SELECT INFO,HOST_NAME FROM DATABASE_INFO");
-        Map<String, Object> params = new HashMap<>();
-        return db.queryForList(sql.toString(), params);
+//        StringBuilder sql = new StringBuilder();
+//        sql.append(" SELECT INFO,HOST_NAME FROM DATABASE_INFO");
+//        Map<String, Object> params = new HashMap<>();
+//        return db.queryForList(sql.toString(), params);
+        return db.queryForList(" SELECT INFO_NO,SCHEMA_NAME FROM DATABASE_INFO");
     }
 
     public void runScript() {

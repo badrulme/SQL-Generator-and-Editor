@@ -47,12 +47,12 @@ public class ScriptRunnerController {
 ////        jdbcTemplate.execute("create table test(no number)");
 //        jdbcTemplate.execute("drop table test");
 //        return "Success";
-//        return scrDao.getDatabaseInfo();
-        StringBuilder sql = new StringBuilder();
-        sql.append(" SELECT INFO,HOST_NAME FROM DATABASE_INFO");
-        Map<String, Object> params = new HashMap<>();
+////        return scrDao.getDatabaseInfo();
+//        StringBuilder sql = new StringBuilder();
+//        sql.append(" SELECT HOST_NAME FROM DATABASE_INFO");
+//        Map<String, Object> params = new HashMap<>();
 //        return db.queryForList(sql.toString(), params);
-        return db.queryForList(sql.toString(), params);
-
+        return db.queryForList(" SELECT INFO_NO,SCHEMA_NAME FROM DATABASE_INFO");
+//       return  scrDao.getDatabaseInfo();
     }
 }

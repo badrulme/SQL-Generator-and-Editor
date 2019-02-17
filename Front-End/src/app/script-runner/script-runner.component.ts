@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptRunnerService } from '../service/data/script-runner.service';
 
+
 @Component({
   selector: 'app-script-runner',
   templateUrl: './script-runner.component.html',
@@ -19,14 +20,17 @@ export class ScriptRunnerComponent implements OnInit {
     { schemaName: 'Madadb Live', }
   ];
 
-  returnMessage: any = '';
-  constructor(private scriptRunnerService: ScriptRunnerService) { }
+  // returnMessage: any = '';
+  constructor() { }
 
   ngOnInit() {
   }
-
+  // scriptRunner(sc) {
+  //   //   return this.http.get<string>(`http://localhost:4200/run-script`, sc);
+  //   return this.http.get('http://localhost:8484/run-script', sc);
+  // }
   // Script Run Method
-  scriptRunner() {
-    this.scriptRunnerService.scriptRunner('badrul').toPromise();
-  }
+  // scriptRunner() {
+  //   this.scriptRunnerService.scriptRunner('badrul').toPromise();
+  // }
 }

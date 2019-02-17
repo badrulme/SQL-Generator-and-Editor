@@ -9,6 +9,7 @@ export class ScriptRunnerService {
   constructor(private http: HttpClient) { }
 
   scriptRunner(sc) {
-    return this.http.get<string>(`http://localhost:4200/run-script`, sc);
+    //   return this.http.get<string>(`http://localhost:4200/run-script`, sc);
+    return this.http.get('http://localhost:8080/hello-world-bean', sc);
   }
 }
