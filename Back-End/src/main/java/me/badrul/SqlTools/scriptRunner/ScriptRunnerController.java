@@ -36,7 +36,9 @@ public class ScriptRunnerController {
             db.execute(sc);
         } catch (Exception e) {
             String n = e.toString();
-            n = n.substring(n.lastIndexOf("ORA"));
+            if (n.contains("ORA")) {
+                n = n.substring(n.lastIndexOf("ORA"));
+            } 
             return n;
         }
 //        db.execute("create table test(no number)");
@@ -57,7 +59,7 @@ public class ScriptRunnerController {
 //        sql.append(" SELECT HOST_NAME FROM DATABASE_INFO");
 //        Map<String, Object> params = new HashMap<>();
 //        return db.queryForList(sql.toString(), params);
-        return db.queryForList(" SELECT INFO_NO,SCHEMA_NAME FROM DATABASE_INFO");
+        return db.queryForList(" SELECT INFO_NO,SCHEMA_NAME FROM DATABASE_INFO WHERE NVL(ACTIVE_FLAG,0)=1");
 //       return  scrDao.getDatabaseInfo();
     }
 }
