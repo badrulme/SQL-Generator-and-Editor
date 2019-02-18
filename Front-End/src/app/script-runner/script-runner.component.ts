@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ScriptRunnerService } from '../service/data/script-runner.service';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-script-runner',
@@ -8,22 +9,14 @@ import { ScriptRunnerService } from '../service/data/script-runner.service';
   styleUrls: ['./script-runner.component.css']
 })
 export class ScriptRunnerComponent implements OnInit {
+  schemaLists: any;
+  userScripts = '';
+  scriptRunnerResponse = '';
 
-  schemaLists: any = [
-    { schemaName: 'BMS Local', },
-    { schemaName: 'Mahmud Live', },
-    { schemaName: 'Ananta Live', },
-    { schemaName: 'Shangu Live', },
-    { schemaName: 'Elegant Live', },
-    { schemaName: 'Vision Live', },
-    { schemaName: 'Sams Live', },
-    { schemaName: 'Madadb Live', }
-  ];
-
-  // returnMessage: any = '';
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getChemaLists();
   }
   // scriptRunner(sc) {
   //   //   return this.http.get<string>(`http://localhost:4200/run-script`, sc);
@@ -33,4 +26,44 @@ export class ScriptRunnerComponent implements OnInit {
   // scriptRunner() {
   //   this.scriptRunnerService.scriptRunner('badrul').toPromise();
   // }
+
+  getChemaLists(): any {
+    this.http.get(`http://localhost:8484/get-dabase-info`, {
+      observe: 'response'
+    })
+      .toPromise()
+      .then(response => {
+        this.schemaLists = response.body;
+      })
+      .catch(console.log);
+  }
+
+  onClickRunScript(userScripts) {
+    if (userScripts !== null) {
+      this.http.post(`http://localhost:8484/run-script`, userScripts, { responseType: 'text' }).subscribe(
+        res => {
+          this.scriptRunnerResponse = res;
+          console.log(res);
+          // alert('Successfully Execute.');
+        },
+        err => {
+          // console.log('Error occured');
+          this.displayError(err);
+          if (err.text === 'Success') {
+            // alert('Successfully Execute');
+            console.log(err.text);
+          } else {
+            console.log(err.text);
+          }
+        }
+      );
+      // console.log(userScripts);
+    }
+
+  }
+
+  private displayError(ex): void {
+    console.log(ex);
+  }
 }
+

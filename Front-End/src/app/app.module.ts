@@ -13,6 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { CaseConverterComponent } from './case-converter/case-converter.component';
 import { ScriptRunnerComponent } from './script-runner/script-runner.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ScriptRunnerComponent } from './script-runner/script-runner.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NgbModule.forRoot()
   ],
   providers: [],
