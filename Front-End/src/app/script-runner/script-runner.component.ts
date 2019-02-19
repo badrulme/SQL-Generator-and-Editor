@@ -12,6 +12,8 @@ export class ScriptRunnerComponent implements OnInit {
   schemaLists: any;
   userScripts = '';
   scriptRunnerResponse = '';
+  apiBaseUrl = 'http://192.168.111.11:8484';
+  // apiBaseUrl = 'http://localhost:8484';
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +30,7 @@ export class ScriptRunnerComponent implements OnInit {
   // }
 
   getChemaLists(): any {
-    this.http.get(`http://localhost:8484/get-dabase-info`, {
+    this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
       observe: 'response'
     })
       .toPromise()
@@ -40,7 +42,7 @@ export class ScriptRunnerComponent implements OnInit {
 
   onClickRunScript(userScripts) {
     if (userScripts !== null) {
-      this.http.post(`http://localhost:8484/run-script`, userScripts, { responseType: 'text' }).subscribe(
+      this.http.post(`${this.apiBaseUrl}/run-script`, userScripts, { responseType: 'text' }).subscribe(
         res => {
           this.scriptRunnerResponse = res;
           console.log(res);
