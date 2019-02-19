@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-sql-gen',
   templateUrl: './sql-gen.component.html',
@@ -29,7 +30,10 @@ export class SqlGenComponent implements OnInit {
   paramsList = '';
   paramsNameInCamelCase = '';
   paramsNameInCamelCasePk = '';
-  constructor() { }
+  hasTableName: any = '';
+  isHasTable = false;
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -107,6 +111,11 @@ export class SqlGenComponent implements OnInit {
       this.i++;
     }
     // console.log(this.splitSql);
+    if (this.tableName.length > 0) {
+      // alert(this.tableName);
+      this.gethasTable();
+    }
+
   }
 
   generateSqlStatement() {
@@ -216,4 +225,30 @@ export class SqlGenComponent implements OnInit {
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
   }
+
+  // API Calling
+  gethasTable(): any {
+    // this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
+    this.http.get(`http://localhost:8484/get-has-table`, {
+      observe: 'response', params: {
+        tableName: this.tableName
+      },
+    })
+      .toPromise()
+      .then(response => {
+        this.hasTableName = response.body;
+        for (const sc of this.hasTableName) {
+          if (sc === null) {
+            alert('null');
+          }
+          if (sc.HASTABLE === 1) {
+            this.isHasTable = true;
+          } else {
+            this.isHasTable = false;
+          }
+        }
+      })
+      .catch(console.log);
+  }
+
 }

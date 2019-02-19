@@ -14,7 +14,8 @@
       <form (ngSubmit)="generateSqlStatement()">
         <div class="card ">
           <div class="card-header  d-flex align-items-center justify-content-between">
-            <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter SQL insert statements</h6>
+            <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter SQL insert statements
+            </h6>
             <div class="pull-right sql-type">
               <label class="radio-inline">
                 <input type="radio" (change)="generateSqlStatement()" [(ngModel)]="sqlType" value="S" name="sqlType">
@@ -31,13 +32,43 @@
               [(ngModel)]="inputUserSql"></textarea>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn bg-primary text-white btn-generate"
-            >Generate SQL</button>
+            <button type="submit" class="btn bg-primary text-white btn-generate">Generate SQL</button>
+
+            <!-- Button trigger modal -->
+            <p class="pull-right" style="color: #818a91;cursor: pointer;font-size: 16px;margin: 0px;"
+              data-toggle="modal" data-target="#queryBuilderModel"> Query Builder</p>
+
+            <!-- Modal -->
+            <div class="modal fade" id="queryBuilderModel" tabindex="-1" role="dialog" aria-labelledby="queryBuilderModelLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="queryBuilderModelLabel">Query Builder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <label for="usr">Name :</label>
+                          <input type="text" class="form-control" id="usr">
+                        </div>
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Modal -->
           </div>
         </div>
       </form>
 
-      <div class="identify-field" *ngIf="tableName">Table Name : {{tableName}}</div>
+      <div class="identify-field" [class.text-danger]="!isHasTable" *ngIf="tableName">Table Name : {{tableName}}</div>
       <div class="identify-field" *ngIf="columnNameList">Column Name : {{columnNameList}}</div>
       <div class="identify-field" *ngIf="inputSequence">Sequence Name : {{inputSequence}}</div>
     </div>
@@ -48,11 +79,12 @@
             <h6 class="pull-left m-0">Insert statement</h6>
             <div class="textarea-copy-all" placement="top" ngbTooltip="Copy All" (click)="copyInputMessage(allSql)"><i
                 class="fa fa-clone" aria-hidden="true"></i></div>
-            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(insertsql)"><i class="fa fa-clone"
-                aria-hidden="true"></i></div>
+            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(insertsql)"><i
+                class="fa fa-clone" aria-hidden="true"></i></div>
           </div>
           <div class="card-body">
-            <textarea #insertsql spellcheck="false" class="form-control insert-statement-field" [(ngModel)]="insertStatementSql"></textarea>
+            <textarea #insertsql spellcheck="false" class="form-control insert-statement-field"
+              [(ngModel)]="insertStatementSql"></textarea>
             <textarea #allSql spellcheck="false" class="all-sql-hide-field" [(ngModel)]="allStatementSql"></textarea>
           </div>
         </div>
@@ -64,18 +96,20 @@
                 class="fa fa-clone" aria-hidden="true"></i></div>
           </div>
           <div class="card-body">
-            <textarea #updatesql spellcheck="false" id="" class="form-control update-statement-field" [(ngModel)]="updateStatementSql"></textarea>
+            <textarea #updatesql spellcheck="false" id="" class="form-control update-statement-field"
+              [(ngModel)]="updateStatementSql"></textarea>
           </div>
         </div>
         <!--/.card-->
         <div class="card">
           <div class="card-header d-flex align-items-center justify-content-between">
             <h6 class="pull-left m-0">Delete statement</h6>
-            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(deletesql)"><i class="fa fa-clone"
-                aria-hidden="true"></i></div>
+            <div class="textarea-copy" placement="top" ngbTooltip="Copy" (click)="copyInputMessage(deletesql)"><i
+                class="fa fa-clone" aria-hidden="true"></i></div>
           </div>
           <div class="card-body">
-            <textarea #deletesql spellcheck="false" id="" class="form-control delete-statement-field" [(ngModel)]="deleteStatementSql"></textarea>
+            <textarea #deletesql spellcheck="false" id="" class="form-control delete-statement-field"
+              [(ngModel)]="deleteStatementSql"></textarea>
           </div>
         </div>
         <!--card-->
@@ -83,3 +117,8 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })</script>

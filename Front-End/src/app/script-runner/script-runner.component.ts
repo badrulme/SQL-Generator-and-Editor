@@ -12,8 +12,8 @@ export class ScriptRunnerComponent implements OnInit {
   schemaLists: any;
   userScripts = '';
   scriptRunnerResponse = '';
-  apiBaseUrl = 'http://192.168.111.11:8484';
-  // apiBaseUrl = 'http://localhost:8484';
+  // apiBaseUrl = 'http://192.168.111.11:8484';
+  apiBaseUrl = 'http://localhost:8484';
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +30,8 @@ export class ScriptRunnerComponent implements OnInit {
   // }
 
   getChemaLists(): any {
-    this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
+    // this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
+    this.http.get(`http://localhost:8484/get-dabase-info`, {
       observe: 'response'
     })
       .toPromise()
