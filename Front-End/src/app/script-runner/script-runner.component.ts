@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Alert } from 'selenium-webdriver';
+import { apiConfig } from '../app.config';
 
 @Component({
   selector: 'app-script-runner',
@@ -12,26 +11,16 @@ export class ScriptRunnerComponent implements OnInit {
   schemaLists: any;
   userScripts = '';
   scriptRunnerResponse = '';
-  // apiBaseUrl = 'http://192.168.111.11:8484';
-  apiBaseUrl = 'http://localhost:8484';
+  scriptRunApiUrl = 'http://localhost:8484';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getChemaLists();
   }
-  // scriptRunner(sc) {
-  //   //   return this.http.get<string>(`http://localhost:4200/run-script`, sc);
-  //   return this.http.get('http://localhost:8484/run-script', sc);
-  // }
-  // Script Run Method
-  // scriptRunner() {
-  //   this.scriptRunnerService.scriptRunner('badrul').toPromise();
-  // }
 
   getChemaLists(): any {
-    // this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
-    this.http.get(`http://localhost:8484/get-dabase-info`, {
+    this.http.get(`${apiConfig.apiBaseUrl}/get-dabase-info`, {
       observe: 'response'
     })
       .toPromise()
@@ -43,7 +32,7 @@ export class ScriptRunnerComponent implements OnInit {
 
   onClickRunScript(userScripts) {
     if (userScripts !== null) {
-      this.http.post(`${this.apiBaseUrl}/run-script`, userScripts, { responseType: 'text' }).subscribe(
+      this.http.post(`${this.scriptRunApiUrl}/run-script`, userScripts, { responseType: 'text' }).subscribe(
         res => {
           this.scriptRunnerResponse = res;
           console.log(res);

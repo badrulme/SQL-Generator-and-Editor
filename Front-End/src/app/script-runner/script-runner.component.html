@@ -44,8 +44,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let sc of schemaLists">
-                <td class="text-center"><input type="checkbox" value="1" checked></td>
+              <tr *ngFor="let sc of schemaLists; let i = index">
+                <td class="text-center">
+                  
+                  <!-- <input type="checkbox" value="1" checked> -->
+                  <div class="custom-control custom-checkbox">
+                      <input type="checkbox" id="chk-{{i}}" class="custom-control-input">
+                      <label  for="chk-{{i}}" class="custom-control-label">&nbsp;</label>
+                    </div>
+                </td>
                 <td style="font-size: 15px;">{{sc.SCHEMA_NAME}}</td>
                 <td class="text-center"><i style="cursor: pointer;" class="fa fa-eye"></i></td>
               </tr>

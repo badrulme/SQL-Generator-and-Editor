@@ -36,24 +36,60 @@
 
             <!-- Button trigger modal -->
             <p class="pull-right" style="color: #818a91;cursor: pointer;font-size: 16px;margin: 0px;"
-              data-toggle="modal" data-target="#queryBuilderModel"> Query Builder</p>
+              data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#queryBuilderModel"
+              (click)="onClickGetTableList()"> Query
+              Builder</p>
 
             <!-- Modal -->
-            <div class="modal fade" id="queryBuilderModel" tabindex="-1" role="dialog" aria-labelledby="queryBuilderModelLabel"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="queryBuilderModelLabel">Query Builder</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal fade bd-example-modal-lg" id="queryBuilderModel" tabindex="-1" role="dialog"
+              aria-labelledby="queryBuilderModelLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content card">
+                  <div class="modal-header card-header">
+                    <h5 class="modal-title" id="queryBuilderModelLabel" style="line-height: 45px;color:#818a91;">Query
+                      Builder</h5>
+                    <button style="line-height: 45px;margin-right: -10px;" type="button" class="close"
+                      data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body container">
+                    <div class="table-area">
                       <div class="form-group">
-                          <label for="usr">Name :</label>
-                          <input type="text" class="form-control" id="usr">
-                        </div>
+                        <label class="text-secondary" for="">Table Name:</label>
+                        <select (change)="onChangeGetColumnList()" [(ngModel)]="selectedTableNameFromApi" class="form-control " name="tableList">
+                          <option *ngFor="let table of tableNameListFromApi" [value]="table.TABLE_NAME">
+                            {{ table.TABLE_NAME }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <!-- <div class="card-body"> -->
+
+                          <table class="table table-bordered table-striped table-hover table-sm text-secondary">
+
+                            <thead>
+                              <tr>
+
+                                <th style="font-size: 14px;" cope="col">Column Name</th>
+                                <th class="text-center" style="width:36px"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let cl of columnNameListFromApi">
+
+                                <td style="font-size: 15px;">{{cl.COLUMN_NAME}}</td>
+                                <td class="text-center"><i style="cursor: pointer;" class="fa fa-eye"></i></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <!-- </div> -->
+
+                        <!-- End card-->
+                      </div>
+                      <div class="col-md-6">2</div>
+                    </div>
                     ...
                   </div>
                   <div class="modal-footer">
@@ -121,4 +157,5 @@
 <script>
   $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
-  })</script>
+  })
+  $('#myModal').modal({ backdrop: 'static', keyboard: false })  </script>

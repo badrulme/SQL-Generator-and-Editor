@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SQL Generator and Editor';
+  baseApiUrl = 'http://localhost:8484';
+  // baseApiUrl = 'http://192.168.111.11:8484';
 }

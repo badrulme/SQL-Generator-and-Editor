@@ -27,9 +27,9 @@ public class QueryBuilderController {
     }
 
     @GetMapping("/get-column-list")
-    public List getColumnList(@RequestBody String tableName) {
+    public List getColumnList(@RequestParam String tableName) {
         try {
-            return db.queryForList("SELECT column_name FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '" + tableName + "'");
+            return db.queryForList("SELECT COLUMN_NAME FROM USER_TAB_COLUMNS WHERE TABLE_NAME = '" + tableName + "'");
         } catch (Exception ex) {
             return (List) ex;
         }

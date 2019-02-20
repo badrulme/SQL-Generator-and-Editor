@@ -82,3 +82,9 @@
 .nopadding {
   padding-right: 0 !important;
 }
+
+
+.custom-control-label::before{
+  background: #fff;
+  border:1px solid #ddd;
+}

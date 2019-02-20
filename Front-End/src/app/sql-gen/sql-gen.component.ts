@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiConfig } from '../app.config';
 @Component({
   selector: 'app-sql-gen',
   templateUrl: './sql-gen.component.html',
@@ -32,6 +33,9 @@ export class SqlGenComponent implements OnInit {
   paramsNameInCamelCasePk = '';
   hasTableName: any = '';
   isHasTable = false;
+  tableNameListFromApi: any = '';
+  selectedTableNameFromApi = '';
+  columnNameListFromApi: any = '';
 
   constructor(private http: HttpClient) { }
 
@@ -229,7 +233,7 @@ export class SqlGenComponent implements OnInit {
   // API Calling
   gethasTable(): any {
     // this.http.get(`http://192.168.111.11:8484/get-dabase-info`, {
-    this.http.get(`http://localhost:8484/get-has-table`, {
+    this.http.get(`${apiConfig.apiBaseUrl}/get-has-table`, {
       observe: 'response', params: {
         tableName: this.tableName
       },
@@ -247,6 +251,33 @@ export class SqlGenComponent implements OnInit {
             this.isHasTable = false;
           }
         }
+      })
+      .catch(console.log);
+  }
+
+  // Modal API calling
+
+  onClickGetTableList(): any {
+    this.http.get(`${apiConfig.apiBaseUrl}/get-table-list`, {
+      observe: 'response'
+    })
+      .toPromise()
+      .then(response => {
+        this.tableNameListFromApi = response.body;
+      })
+      .catch(console.log);
+  }
+
+  onChangeGetColumnList(): any {
+
+    this.http.get(`${apiConfig.apiBaseUrl}/get-column-list`, {
+      observe: 'response', params: {
+        tableName: this.selectedTableNameFromApi
+      }
+    })
+      .toPromise()
+      .then(response => {
+        this.columnNameListFromApi = response.body;
       })
       .catch(console.log);
   }
