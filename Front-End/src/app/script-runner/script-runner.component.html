@@ -8,7 +8,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header  d-flex align-items-center justify-content-between">
-          <h6 class="pull-left m-0"><i class="fa fa-code"  aria-hidden="true"></i> &nbsp;Enter SQL, PL/SQL Scripts </h6>
+          <h6 class="pull-left m-0"><i class="fa fa-code" aria-hidden="true"></i> &nbsp;Enter SQL, PL/SQL Scripts </h6>
         </div>
         <div class="card-body">
           <textarea spellcheck="false" [(ngModel)]="userScripts" name="userScripts"
@@ -38,20 +38,26 @@
 
             <thead>
               <tr>
-                <th class="text-center" style="width:36px" cope="col"><input type="checkbox"></th>
+                <th class="text-center" style="width:46px" cope="col">
+                  <!-- <input type="checkbox"> -->
+                  <div class="custom-control custom-checkbox" style="margin-left: 13px;">
+                    <input type="checkbox" id="checkboxAll" class="custom-control-input">
+                    <label for="checkboxAll" class="custom-control-label">&nbsp;</label>
+                  </div>
+                </th>
                 <th style="font-size: 14px;" cope="col">Schema Name</th>
-                <th class="text-center" style="width:36px"></th>
+                <th class="text-center" style="width:46px"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let sc of schemaLists; let i = index">
                 <td class="text-center">
-                  
+
                   <!-- <input type="checkbox" value="1" checked> -->
-                  <div class="custom-control custom-checkbox">
-                      <input type="checkbox" id="chk-{{i}}" class="custom-control-input">
-                      <label  for="chk-{{i}}" class="custom-control-label">&nbsp;</label>
-                    </div>
+                  <div class="custom-control custom-checkbox" style="margin-left: 13px;">
+                    <input type="checkbox" id="chk-{{i}}" class="custom-control-input">
+                    <label for="chk-{{i}}" class="custom-control-label">&nbsp;</label>
+                  </div>
                 </td>
                 <td style="font-size: 15px;">{{sc.SCHEMA_NAME}}</td>
                 <td class="text-center"><i style="cursor: pointer;" class="fa fa-eye"></i></td>

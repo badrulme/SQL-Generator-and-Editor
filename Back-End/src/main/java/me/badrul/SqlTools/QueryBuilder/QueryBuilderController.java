@@ -39,11 +39,19 @@ public class QueryBuilderController {
     @GetMapping("/get-has-table")
     public List getHasTable(@RequestParam String tableName) {
         try {
-//            return db.queryForList("SELECT 1 HASTABLE FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'");
             return db.queryForList("SELECT NVL((SELECT 1 HASTABLE FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'),0)HASTABLE FROM DUAL");
         } catch (Exception ex) {
             return (List) ex;
         }
+    }
 
+    @GetMapping("/get-hash-column-name")
+    public List getHashColumnName(@RequestParam String tableName, @RequestParam String columnName) {
+        try {
+            return db.queryForList("SELECT NVL((SELECT 1 FROM USER_TAB_COLUMNS\n"
+                    + "WHERE TABLE_NAME='" + tableName + "' AND COLUMN_NAME='" + columnName + "'),0)HAS_COLUMN_NAME FROM DUAL");
+        } catch (Exception ex) {
+            return (List) ex;
+        }
     }
 }

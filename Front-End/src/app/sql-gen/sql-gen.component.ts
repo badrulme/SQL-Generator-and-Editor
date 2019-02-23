@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { apiConfig } from '../app.config';
+
 @Component({
   selector: 'app-sql-gen',
   templateUrl: './sql-gen.component.html',
@@ -36,10 +37,14 @@ export class SqlGenComponent implements OnInit {
   tableNameListFromApi: any = '';
   selectedTableNameFromApi = '';
   columnNameListFromApi: any = '';
+  selectedColumnNameListFromModal: String[] = [];
+  displayColumnList = '';
+
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+
   }
 
   objectIdentify() {
@@ -118,6 +123,7 @@ export class SqlGenComponent implements OnInit {
     if (this.tableName.length > 0) {
       // alert(this.tableName);
       this.gethasTable();
+      this.getHasColumn();
     }
 
   }
@@ -214,7 +220,6 @@ export class SqlGenComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         this.deleteStatementSql = '// DELETE STATEMENT FOR ' + this.tableName + '\nsql.append(" DELETE FROM ' + this.tableName + ' WHERE ' + this.pkColumnName + ' = :' + this.pkColumnName + '");\n' + '\nMap<String, Object> params = new HashMap<>();\n' + 'params.put("' + this.pkColumnName + '", ' + this.paramsNameInCamelCasePk + ');';
         this.allStatementSql = this.insertStatementSql + '\n\n' + this.updateStatementSql + '\n\n' + this.deleteStatementSql;
-
       }
     }
   }
@@ -236,7 +241,7 @@ export class SqlGenComponent implements OnInit {
     this.http.get(`${apiConfig.apiBaseUrl}/get-has-table`, {
       observe: 'response', params: {
         tableName: this.tableName
-      },
+      }
     })
       .toPromise()
       .then(response => {
@@ -255,9 +260,24 @@ export class SqlGenComponent implements OnInit {
       .catch(console.log);
   }
 
+  getHasColumn(): any {
+    let isHasColumn: any;
+    const splitColumnForCheckingFromDatabse = this.columnNameList.trim().split(',');
+    for (const cl of splitColumnForCheckingFromDatabse) {
+      this.http.get(`${apiConfig.apiBaseUrl}/get-hash-column-name`,
+        { observe: 'response', params: { tableName: this.tableName, columnName: cl } }
+      ).toPromise().then(response => { isHasColumn = response.body; }).catch(console.log);
+      if (isHasColumn.HAS_COLUMN_NAME = 1) {
+        this.displayColumnList += '<span>{{cl}}</span>';
+      } else {
+        this.displayColumnList += '<span class="text-danger">{{cl}}</span>';
+      }
+    }
+  }
   // Modal API calling
 
   onClickGetTableList(): any {
+    this.tableNameListFromApi = '';
     this.http.get(`${apiConfig.apiBaseUrl}/get-table-list`, {
       observe: 'response'
     })
@@ -269,7 +289,7 @@ export class SqlGenComponent implements OnInit {
   }
 
   onChangeGetColumnList(): any {
-
+    this.selectedColumnNameListFromModal = [];
     this.http.get(`${apiConfig.apiBaseUrl}/get-column-list`, {
       observe: 'response', params: {
         tableName: this.selectedTableNameFromApi
@@ -282,4 +302,49 @@ export class SqlGenComponent implements OnInit {
       .catch(console.log);
   }
 
+  // Make an array for All column list
+  onClickAddAllColumnListToArray(): any {
+    for (const cl of this.columnNameListFromApi) {
+      this.selectedColumnNameListFromModal.push(cl.COLUMN_NAME);
+    }
+    this.columnNameListFromApi.splice(0);
+  }
+
+  // Make an array for All column list
+  onClickRemoveAllColumnListFromArray(): any {
+
+    for (const cl of this.selectedColumnNameListFromModal) {
+      this.columnNameListFromApi.push({ COLUMN_NAME: cl });
+    }
+    this.selectedColumnNameListFromModal.splice(0);
+  }
+
+  // Make an array for selected column list
+  onClickAddColumnListToArray(cl, i): any {
+    this.selectedColumnNameListFromModal.push(cl);
+    this.columnNameListFromApi.splice(i, 1);
+  }
+
+  // Delete element from selected array list
+  onClickRemoveColumnListFromArray(cl, i): any {
+    this.columnNameListFromApi.push({ COLUMN_NAME: cl });
+    this.selectedColumnNameListFromModal.splice(i, 1);
+  }
+
+  // Generate SQL from Query Builder
+  makeSqlInsertColumnListFromSelectedColumn() {
+    if (this.selectedColumnNameListFromModal.length > 0) {
+      let selectedColumnlList = '';
+      for (const cl of this.selectedColumnNameListFromModal) {
+        selectedColumnlList += cl + ', ';
+      }
+      selectedColumnlList = selectedColumnlList.replace(/,\s*$/, '');
+      this.inputUserSql = 'INSERT INTO ' + this.selectedTableNameFromApi + '(' + selectedColumnlList + ')';
+      this.generateSqlStatement();
+      this.selectedTableNameFromApi = '';
+      this.selectedColumnNameListFromModal.splice(0);
+    }
+  }
 }
+
+

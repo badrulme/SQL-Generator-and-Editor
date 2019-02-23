@@ -21,6 +21,7 @@
     "@angular/router": "~7.1.0",
     "@ng-bootstrap/ng-bootstrap": "^2.2.2",
     "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
+    "@ng-select/ng-select": "^2.15.3",
     "bootstrap": "^4.0.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",

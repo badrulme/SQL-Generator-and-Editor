@@ -86,5 +86,5 @@
 
 .custom-control-label::before{
   background: #fff;
-  border:1px solid #ddd;
+  border:1px solid rgba(180, 178, 178, 0.849);
 }
