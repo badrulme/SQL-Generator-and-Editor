@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 /* @import url(bootstrap.min.css) */
 .navbar{
     background: #1976d2 !important;
@@ -87,4 +90,8 @@
 .custom-control-label::before{
   background: #fff;
   border:1px solid rgba(180, 178, 178, 0.849);
+}
+.modal.show{
+  display: block;
+  opacity: 1;
 }

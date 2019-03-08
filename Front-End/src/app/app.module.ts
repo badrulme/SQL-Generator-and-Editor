@@ -14,7 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { CaseConverterComponent } from './case-converter/case-converter.component';
 import { ScriptRunnerComponent } from './script-runner/script-runner.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
+    NgxDatatableModule,
     HttpClientModule,
     NgbModule.forRoot()
   ],

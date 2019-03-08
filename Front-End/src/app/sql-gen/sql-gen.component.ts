@@ -34,12 +34,23 @@ export class SqlGenComponent implements OnInit {
   paramsNameInCamelCasePk = '';
   hasTableName: any = '';
   isHasTable = false;
-  tableNameListFromApi: any = '';
+  tableNameListFromApi: any = [];
+  modalOpen = false;
   selectedTableNameFromApi = '';
   columnNameListFromApi: any = '';
   selectedColumnNameListFromModal: String[] = [];
   displayColumnList = '';
 
+  rows = [
+    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+    { name: 'Dany', gender: 'Male', company: 'KFC' },
+    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  ];
+  columns = [
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
+  ];
 
   constructor(private http: HttpClient) { }
 
@@ -123,7 +134,7 @@ export class SqlGenComponent implements OnInit {
     if (this.tableName.length > 0) {
       // alert(this.tableName);
       this.gethasTable();
-      this.getHasColumn();
+      // this.getHasColumn();
     }
 
   }
@@ -260,23 +271,24 @@ export class SqlGenComponent implements OnInit {
       .catch(console.log);
   }
 
-  getHasColumn(): any {
-    let isHasColumn: any;
-    const splitColumnForCheckingFromDatabse = this.columnNameList.trim().split(',');
-    for (const cl of splitColumnForCheckingFromDatabse) {
-      this.http.get(`${apiConfig.apiBaseUrl}/get-hash-column-name`,
-        { observe: 'response', params: { tableName: this.tableName, columnName: cl } }
-      ).toPromise().then(response => { isHasColumn = response.body; }).catch(console.log);
-      if (isHasColumn.HAS_COLUMN_NAME = 1) {
-        this.displayColumnList += '<span>{{cl}}</span>';
-      } else {
-        this.displayColumnList += '<span class="text-danger">{{cl}}</span>';
-      }
-    }
-  }
+  // getHasColumn(): any {
+  //   let isHasColumn: any;
+  //   const splitColumnForCheckingFromDatabse = this.columnNameList.trim().split(',');
+  //   for (const cl of splitColumnForCheckingFromDatabse) {
+  //     this.http.get(`${apiConfig.apiBaseUrl}/get-hash-column-name`,
+  //       { observe: 'response', params: { tableName: this.tableName, columnName: cl } }
+  //     ).toPromise().then(response => { isHasColumn = response.body; }).catch(console.log);
+  //     if (isHasColumn.HAS_COLUMN_NAME = 1) {
+  //       this.displayColumnList += '<span>{{cl}}</span>';
+  //     } else {
+  //       this.displayColumnList += '<span class="text-danger">{{cl}}</span>';
+  //     }
+  //   }
+  // }
   // Modal API calling
 
   onClickGetTableList(): any {
+    this.modalOpen = true;
     this.tableNameListFromApi = '';
     this.http.get(`${apiConfig.apiBaseUrl}/get-table-list`, {
       observe: 'response'

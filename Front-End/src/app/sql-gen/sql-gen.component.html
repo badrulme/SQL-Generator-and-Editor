@@ -36,20 +36,18 @@
 
             <!-- Button trigger modal -->
             <p class="pull-right" style="color: #818a91;cursor: pointer;font-size: 16px;margin: 0px;"
-              data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#queryBuilderModel"
               (click)="onClickGetTableList()"> Query
               Builder</p>
 
             <!-- Modal -->
-            <div class="modal fade bd-example-modal-lg" id="queryBuilderModel" tabindex="-1" role="dialog"
-              aria-labelledby="queryBuilderModelLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" [class.show]="modalOpen">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content card">
                   <div class="modal-header card-header">
                     <h5 class="modal-title" id="queryBuilderModelLabel" style="line-height: 45px;color:#818a91;">Query
                       Builder</h5>
                     <button style="line-height: 45px;margin-right: -10px;" type="button" class="close"
-                      data-dismiss="modal" aria-label="Close">
+                      (click)="modalOpen=false">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -62,11 +60,10 @@
                           <option *ngFor="let table of tableNameListFromApi" [value]="table.TABLE_NAME">
                             {{ table.TABLE_NAME }}</option>
                         </select> -->
-
-                        <select class="js-example-basic-single" name="state">
-                          <option value="AL">Alabama</option>
-                          <option value="WY">Wyoming</option>
-                        </select>
+                        <ng-select [items]="tableNameListFromApi" bindLabel="TABLE_NAME" autofocus
+                          bindValue="TABLE_NAME" name="tableList" (change)="onChangeGetColumnList()"
+                          [(ngModel)]="selectedTableNameFromApi">
+                        </ng-select>
 
                       </div>
                     </div>
@@ -74,7 +71,6 @@
                       <div class="col-md-6">
                         <!-- <div class="card-body"> -->
                         <table class="table table-bordered table-striped table-hover table-sm text-secondary">
-
                           <thead>
                             <tr>
 
@@ -94,7 +90,21 @@
                             </tr>
                           </tbody>
                         </table>
+
                         <!-- End card-->
+
+                        <div>
+                          <!-- Table grid -->
+                          <!-- <ngx-datatable
+                            [rows]="rows"
+                            [columns]="columns">
+                          </ngx-datatable> -->
+                          <ngx-datatable class="bootstrap  ngx-datatable datatable-header" [rows]="rows" [loadingIndicator]="loadingIndicator"
+                            [columns]="columns" [columnMode]="'force'" [headerHeight]="40" [summaryRow]="true"
+                            [summaryPosition]="'bottom'" [footerHeight]="40" [limit]="2" [rowHeight]="'auto'"
+                            [reorderable]="reorderable">
+                          </ngx-datatable>
+                        </div>
                       </div>
                       <div class="col-md-6">
                         <!-- <div class="card-body"> -->
@@ -125,9 +135,10 @@
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button (click)="makeSqlInsertColumnListFromSelectedColumn()" type="button" data-dismiss="modal"
-                      class="btn btn-primary">Generate SQL</button>
+                    <button type="button" class="btn btn-secondary" (click)="modalOpen=false"
+                      data-dismiss="modal">Close</button>
+                    <button (click)="makeSqlInsertColumnListFromSelectedColumn();modalOpen=false" type="button"
+                      data-dismiss="modal" class="btn btn-primary">Process SQL</button>
                   </div>
                 </div>
               </div>
@@ -138,7 +149,7 @@
       </form>
 
       <div class="identify-field" [class.text-danger]="!isHasTable" *ngIf="tableName">Table Name : {{tableName}}</div>
-      <div class="identify-field" *ngIf="columnNameList">Column Name : {{displayColumnList}}</div>
+      <div class="identify-field" *ngIf="columnNameList">Column Name : {{columnNameList}}</div>
       <div class="identify-field" *ngIf="inputSequence">Sequence Name : {{inputSequence}}</div>
     </div>
     <div class="col-md-6">
@@ -186,12 +197,4 @@
     </div>
   </div>
 </div>
-
-<script>
-
-  // For Modal
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  })
-  $('#myModal').modal({ backdrop: 'static', keyboard: false })
-</script>
+<div *ngIf="modalOpen" class="modal-backdrop fade" [class.show]="modalOpen"></div>
