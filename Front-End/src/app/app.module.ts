@@ -16,7 +16,8 @@ import { ScriptRunnerComponent } from './script-runner/script-runner.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
+import { MatTableModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgSelectModule,
     NgxDatatableModule,
     HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
     NgbModule.forRoot()
   ],
   providers: [],

@@ -3,6 +3,7 @@
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 /* @import url(bootstrap.min.css) */
 .navbar{
     background: #1976d2 !important;
@@ -94,4 +95,8 @@
 .modal.show{
   display: block;
   opacity: 1;
+}
+
+.datatable-summary-row{
+  display: none;
 }
