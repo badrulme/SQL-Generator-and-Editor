@@ -18,6 +18,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { MatPaginatorModule } from '@angular/material';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
+    NoopAnimationsModule,
     NgbModule.forRoot()
   ],
   providers: [],
