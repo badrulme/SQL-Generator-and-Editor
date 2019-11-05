@@ -6,6 +6,7 @@ import { ErrorComponent } from './error/error.component';
 import { HomeComponent } from './home/home.component';
 import { CaseConverterComponent } from './case-converter/case-converter.component';
 import { ScriptRunnerComponent } from './script-runner/script-runner.component';
+import { ApiCreatorComponent } from './api-creator/api-creator.component';
 
 const routes: Routes = [
   { path: '', component: SqlGenComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'sql-editor', component: SqlEditorComponent },
   { path: 'case-converter', component: CaseConverterComponent },
   { path: 'script-runner', component: ScriptRunnerComponent },
+  { path: 'api-creator', component: ApiCreatorComponent },
   { path: '**', component: ErrorComponent }
 ];
 

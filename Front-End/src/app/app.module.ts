@@ -19,6 +19,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiCreatorComponent } from './api-creator/api-creator.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     FooterComponent,
     HomeComponent,
     CaseConverterComponent,
-    ScriptRunnerComponent
+    ScriptRunnerComponent,
+    ApiCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +42,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    NoopAnimationsModule,
-    NgbModule.forRoot()
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
