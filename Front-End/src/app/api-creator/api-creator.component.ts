@@ -9,6 +9,7 @@ import { apiConfig } from '../app.config';
 })
 export class ApiCreatorComponent implements OnInit {
   public tableNameListFromApi;
+  public javaModal;
   constructor(private http:HttpClient) { }
 
   ngOnInit() {

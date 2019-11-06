@@ -1,7 +1,12 @@
 <div class="container">
-<p>
-  api-creator works!
-</p>
+  <div class="form-group">
+    <label class="text-secondary" for="">Table Name:</label>
+    <ng-select [items]="tableNameListFromApi" bindLabel="TABLE_NAME" autofocus
+      bindValue="TABLE_NAME" name="tableList" (change)="onChangeGetColumnList()"
+      [(ngModel)]="selectedTableNameFromApi">
+    </ng-select>
+
+  </div>
 
 
 </div>
